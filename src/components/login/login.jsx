@@ -9,7 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent'; 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import "./style.scss";
+import "../../style.scss";
 import { stringify } from "querystring"; 
 
 
