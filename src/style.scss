@@ -1,5 +1,5 @@
 
-.base-container {  
+.base-container {   
   height: 39em;
   background-image:url("https://wallpaperaccess.com/full/1567666.png") ;
   background-size:     cover;                      
@@ -82,5 +82,17 @@
     }
     .footer {
       margin-top: 3em;
+    }
+  } 
+
+  .main-container{
+    background-color: darkgray;
+    .dash{ 
+      background-color: rgba(221, 23, 228, 0.178);
+    } 
+    .container{  
+      background-color: darkgray ;
+      padding-top: 6em;  
+
     }
   }

@@ -15,7 +15,7 @@ import { stringify } from "querystring";
 
 
 
-const Login = () => ( 
+const LoginM = () => ( 
   
 
 <Formik
@@ -62,7 +62,7 @@ const Login = () => (
         <div className="base-container"> 
         <Card className="myCard"> 
           <CardContent>
-          <div className="header">Security Login</div>
+          <div className="header">Maintenance Login</div>
           <div className="content">
             <div className="form"> 
               <div className="form-group">
@@ -125,7 +125,7 @@ const Login = () => (
     </Formik>
 
 )
-export default Login;
+export default LoginM;
 
   
  

@@ -31,21 +31,13 @@ export default function Front() {
         height: '13em',
     } 
     var cont={ 
-        height:"15em"
+        height:"13em"
     }  
     var top={ 
         
         margin:"30px"
     } 
-    var cardstyle = { 
-        display: 'block',
-        width: '100%',
-        transitionDuration: '0.3s',
-        height: '15em',
-        image: "url(${https://wallpaperaccess.com/full/1567666.png})", 
-
-        
-    } 
+    
 
   return( 
 <div> 
