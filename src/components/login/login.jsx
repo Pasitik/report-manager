@@ -1,7 +1,7 @@
 import React, {useCallback, useContext} from "react"; 
 import Home from "../../App"; 
 import {Link} from "react-router-dom" 
-import history from "../../history";
+import { withRouter, Redirect} from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card'; 
 import Button from '@material-ui/core/Button';
@@ -11,13 +11,35 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import "../../style.scss";
 import { stringify } from "querystring"; 
+import app from "../../base.js"; 
+import { AuthContext } from "../../auth.js"
 
 
 
+const Login = ({ history }) => { 
+  const hanleLogin = useCallback( 
+    async event => { 
+      event.preventDefault(); 
+      const {email, password} = event.target.elements; 
+      try{ 
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+          history.push("/"); 
+      } catch (error) { 
+        alert(error);
+      } 
+    }, 
+    [history]
+  ); 
 
-const Login = () => ( 
+  const { currentUser } = useContext(AuthContext); 
+
+  if(currentUser){ 
+    return <Redirect to = "/" />
+  }
   
-
+return(
 <Formik
     initialValues={{ email: "", password: ""}}
     onSubmit={(values, { setSubmitting }) => {
@@ -29,8 +51,9 @@ const Login = () => (
     //validation logic  
     validate={values => {
       let errors = {}; 
-      if (!values.email) {
-        errors.email = "email field equired!";
+    
+      if (!values.userID) {
+        errors.userID = "user Id field equired!";
       } 
       if (!values.password) {
         errors.password = "password field required!";
@@ -59,10 +82,10 @@ const Login = () => (
         <div className="base-container"> 
         <Card className="myCard"> 
           <CardContent>
-          <div className="header">Security Login</div>
+          <div className="header">Maintenance Login</div>
           <div className="content">
-            <form className="form"> 
-              
+            <form className="form" onSubmit={hanleLogin}> 
+            
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input type="text"
@@ -106,8 +129,8 @@ const Login = () => (
     ); 
     }} 
     </Formik>
-
 )
+  }
 export default Login;
 
   

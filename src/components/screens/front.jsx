@@ -54,7 +54,7 @@ export default function Front() {
           Security
         </Typography>
         <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
-          click here to login if you are a road maintenance personell (people who work at roads and highways, 
+          click here to proceed if you are a road maintenance personell (people who work at roads and highways, 
           town and county planning and all other departments involved in road maintenance). 
         </Typography>
       </CardContent>
@@ -70,7 +70,7 @@ export default function Front() {
           Maintenance
         </Typography>
         <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
-          click here to login if you are a security personnel(the police service, fireservice, red-cross, media etc.)
+          click here to proceed if you are a security personnel(the police service, fireservice, red-cross, media etc.)
         </Typography>
       </CardContent>
     </CardActionArea> 
