@@ -1,7 +1,7 @@
 import React, {useCallback, useContext} from "react"; 
 import Home from "../../App"; 
 import {Link} from "react-router-dom" 
-import history from "../../history";
+import { withRouter, Redirect} from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card'; 
 import Button from '@material-ui/core/Button';
@@ -11,15 +11,37 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import "../../style.scss";
 import { stringify } from "querystring"; 
+import app from "../../base.js"; 
+import { AuthContext } from "../../auth.js"
 
 
 
+const LoginM = ({ history }) => { 
+  const hanleLoginM = useCallback( 
+    async event => { 
+      event.preventDefault(); 
+      const {email, password} = event.target.elements; 
+      try{ 
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+          history.push("/"); 
+      } catch (error) { 
+        alert(error);
+      } 
+    }, 
+    [history]
+  ); 
 
-const LoginM = () => ( 
+  const { currentUser } = useContext(AuthContext); 
+
+  if(currentUser){ 
+    return <Redirect to = "/" />
+  }
   
-
+return(
 <Formik
-    initialValues={{ department: "", userID: "", password: ""}}
+    initialValues={{ email: "", password: ""}}
     onSubmit={(values, { setSubmitting }) => {
       setTimeout(() => {
         console.log("Logging in", values);
@@ -29,9 +51,7 @@ const LoginM = () => (
     //validation logic  
     validate={values => {
       let errors = {}; 
-      if (!values.department) {
-        errors.department= "department field required!";
-      }  
+    
       if (!values.userID) {
         errors.userID = "user Id field equired!";
       } 
@@ -64,35 +84,21 @@ const LoginM = () => (
           <CardContent>
           <div className="header">Maintenance Login</div>
           <div className="content">
-            <div className="form"> 
+            <form className="form" onSubmit={hanleLoginM}> 
+            
               <div className="form-group">
-                <label htmlFor="department">Department</label>
-                <input type="text" 
-                id="department" 
-                name="department"  
-                placeholder="Department" 
-                value={values.department}
-                onChange={handleChange}
-                onBlur={handleBlur}
-               className={errors.department && touched.department && "error"}
-                /> 
-                {errors.department && touched.department && (
-                <div className="input-feedback">{errors.department}</div>
-                  )}
-              </div> 
-              <div className="form-group">
-                <label htmlFor="userID">UserID</label>
+                <label htmlFor="email">Email</label>
                 <input type="text"
-                id="userid"
-                name="userID"
-                placeholder="userID"  
+                id="email"
+                name="email"
+                placeholder="email"  
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-               className={errors.userID && touched.userID && "error"} 
+               className={errors.email && touched.email && "error"} 
                 /> 
-                {errors.userID && touched.userID && (
-                <div className="input-feedback">{errors.userID}</div>
+                {errors.email && touched.email && (
+                <div className="input-feedback">{errors.email}</div>
                   )}
               </div>
               <div className="form-group">
@@ -101,16 +107,16 @@ const LoginM = () => (
                 id="password" 
                 name="password" 
                 placeholder="password"
-                value={values.email}
+                value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-               className={errors.email && touched.email && "error"}
+               className={errors.password && touched.password && "error"}
                  />
                  {errors.password && touched.password && (
                 <div className="input-feedback">{errors.password}</div>
                   )}
               </div>
-            </div> 
+            </form> 
           </div>
           <div className="footer"> 
             <Button as = {Link}  to="/home" type="submit">
@@ -123,8 +129,8 @@ const LoginM = () => (
     ); 
     }} 
     </Formik>
-
 )
+  }
 export default LoginM;
 
   

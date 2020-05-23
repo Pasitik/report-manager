@@ -19,7 +19,7 @@ const Login = () => (
   
 
 <Formik
-    initialValues={{ department: "", userID: "", password: ""}}
+    initialValues={{ email: "", password: ""}}
     onSubmit={(values, { setSubmitting }) => {
       setTimeout(() => {
         console.log("Logging in", values);
@@ -29,11 +29,8 @@ const Login = () => (
     //validation logic  
     validate={values => {
       let errors = {}; 
-      if (!values.department) {
-        errors.department= "department field required!";
-      }  
-      if (!values.userID) {
-        errors.userID = "user Id field equired!";
+      if (!values.email) {
+        errors.email = "email field equired!";
       } 
       if (!values.password) {
         errors.password = "password field required!";
@@ -64,35 +61,21 @@ const Login = () => (
           <CardContent>
           <div className="header">Security Login</div>
           <div className="content">
-            <div className="form"> 
+            <form className="form"> 
+              
               <div className="form-group">
-                <label htmlFor="department">Department</label>
-                <input type="text" 
-                id="department" 
-                name="department"  
-                placeholder="Department" 
-                value={values.department}
-                onChange={handleChange}
-                onBlur={handleBlur}
-               className={errors.department && touched.department && "error"}
-                /> 
-                {errors.department && touched.department && (
-                <div className="input-feedback">{errors.department}</div>
-                  )}
-              </div> 
-              <div className="form-group">
-                <label htmlFor="userID">UserID</label>
+                <label htmlFor="email">Email</label>
                 <input type="text"
-                id="userid"
-                name="userID"
-                placeholder="userID"  
+                id="email"
+                name="email"
+                placeholder="email"  
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-               className={errors.userID && touched.userID && "error"} 
+               className={errors.email && touched.email && "error"} 
                 /> 
-                {errors.userID && touched.userID && (
-                <div className="input-feedback">{errors.userID}</div>
+                {errors.email && touched.email && (
+                <div className="input-feedback">{errors.email}</div>
                   )}
               </div>
               <div className="form-group">
@@ -101,16 +84,16 @@ const Login = () => (
                 id="password" 
                 name="password" 
                 placeholder="password"
-                value={values.email}
+                value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-               className={errors.email && touched.email && "error"}
+               className={errors.password && touched.password && "error"}
                  />
                  {errors.password && touched.password && (
                 <div className="input-feedback">{errors.password}</div>
                   )}
               </div>
-            </div> 
+            </form> 
           </div>
           <div className="footer"> 
             <Button as = {Link}  to="/home" type="submit">
