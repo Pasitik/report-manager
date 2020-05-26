@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Maintenance from './components/screens/maintenancesDash'; 
 import { AuthProvider } from "./auth.js" 
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from './components/screens/Dashboard';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/login" component={Login} />  
       <Route exact path="/front" component={Front} />  
       <Route exact path="/home" component={Home} />  
+      <Route exact path="/dashboard" component={Dashboard} />  
       </Switch>
       </div>
       </Router>
