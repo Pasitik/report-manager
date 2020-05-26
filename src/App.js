@@ -15,7 +15,6 @@ function App() {
   return (  
       <AuthProvider>
       <Router>
-      <div className="App">  
       <Switch> 
       <PrivateRoute exact path="/" component={Maintenance} />  
       <Route exact path="/login" component={Login} />  
@@ -23,7 +22,6 @@ function App() {
       <Route exact path="/home" component={Home} />  
       <Route exact path="/dashboard" component={Dashboard} />  
       </Switch>
-      </div>
       </Router>
       </AuthProvider>
           );
