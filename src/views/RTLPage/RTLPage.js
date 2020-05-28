@@ -11,6 +11,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
+
 
 // core components
 import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
@@ -30,9 +32,11 @@ export default function CustomTable(props) {
   
   const button = (
     <Button
+      component={Link}
       variant='contained'
       color='primary'
       size='small'
+      to={'/maps'}
     >
       View Map
     </Button>

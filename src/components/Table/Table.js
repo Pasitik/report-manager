@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from 'react-router-dom'
 // @material-ui/core components
 
 import { Container, Typography, IconButton, FormControlLabel, Switch, Icon, Button } from '@material-ui/core';
@@ -30,9 +31,11 @@ export default function CustomTable(props) {
   
   const button = (
     <Button
+      component={Link}
       variant='contained'
       color='primary'
       size='small'
+      to={'/maps'}
     >
       View Map
     </Button>
