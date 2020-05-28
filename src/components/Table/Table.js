@@ -57,13 +57,13 @@ export default function CustomTable(props) {
   }
   
   const rows = [
-      createData(1, 'Faulty Traffic lights', '20-05-2020'),
-      createData(2, 'Faulty Traffic lights', '26-05-2020'),
-      createData(4, 'Faulty Traffic lights', '24-05-2020'),
-      createData(3, 'Faulty Traffic lights', '22-05-2020'),
-      createData(5, 'Faulty Traffic lights', '23-05-2020'),
-      createData(6, 'Faulty Traffic lights', '27-05-2020'),
-      createData(7, 'Faulty Traffic lights', '26-05-2020'),
+      createData(1, 'Traffic Lights', '20-05-2020'),
+      createData(2, 'Traffic Lights', '26-05-2020'),
+      createData(4, 'Traffic Lights', '24-05-2020'),
+      createData(3, 'Traffic Lights', '22-05-2020'),
+      createData(5, 'Traffic Lights', '23-05-2020'),
+      createData(6, 'Traffic Lights', '27-05-2020'),
+      createData(7, 'Traffic Lights', '26-05-2020'),
   ]
   
   const useStyles = makeStyles({
