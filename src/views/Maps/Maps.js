@@ -11,9 +11,9 @@ import {
 const MapComponent = compose(
   withProps({
     googleMapURL:
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyDanEc0d2_0dClacfkr2t9qmX1w7G2QJDA',
+      'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY',
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `100vh` }} />,
+    containerElement: <div style={{ height: `90vh`, marginTop: '2rem' }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   withScriptjs,
@@ -33,23 +33,23 @@ const MapComponent = compose(
 ));
 
 const Maps = () => {
-    const [formData, setFormData] = useState({
+    const [marker, setMarker] = useState({
       isMarkerShown: false
     });
 
-    const { isMarkerShown } = formData;
+    const { isMarkerShown } = marker;
     useEffect(() => {
         delayedShowMarker();
     }, []);
 
     const delayedShowMarker = () => {
         setTimeout(() => {
-        setFormData({ isMarkerShown: true });
+        setMarker({ isMarkerShown: true });
         }, 3000);
     };
 
     const handleMarkerClick = () => {
-        setFormData({ isMarkerShown: false });
+        setMarker({ isMarkerShown: false });
         delayedShowMarker();
     };
 
