@@ -34,8 +34,7 @@ export default function Maintenance(){
     } 
 return(
   <div className="main-container">
-    <div style={ cardStyle } className="dash"> 
-    
+    <div style={ cardStyle } className="dash">  
     </div> 
 
     <div className="container">
@@ -45,10 +44,10 @@ return(
     <Card style={cardstyle}> 
     <CardActionArea>
       <CardContent style={cont}> 
-        <Typography style={top} className="top" gutterBottom variant="h5" component="h2">
+        <Typography align="center" style={top} className="top" gutterBottom variant="h5" component="h2">
           Traffic Lights
         </Typography>
-        <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
+        <Typography align="center" style={top} className="top" variant="body2" color="textSecondary" component="p">
           click here to view all reports on faulty traffic lights
         </Typography>
       </CardContent>
@@ -58,10 +57,10 @@ return(
     <Card style={cardstyle}> 
     <CardActionArea>
       <CardContent style={cont}> 
-        <Typography style={top} className="top" gutterBottom variant="h5" component="h2">
+        <Typography align="center" style={top} className="top" gutterBottom variant="h5" component="h2">
           Potholes
         </Typography>
-        <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
+        <Typography align="center" style={top} className="top" variant="body2" color="textSecondary" component="p">
           click here to view reports made on potholes
         </Typography>
       </CardContent>
@@ -76,10 +75,10 @@ return(
     <Card style={cardstyle}> 
     <CardActionArea>
       <CardContent style={cont}> 
-        <Typography style={top} className="top" gutterBottom variant="h5" component="h2">
+        <Typography align="center" style={top} className="top" gutterBottom variant="h5" component="h2">
           Street Lights
         </Typography>
-        <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
+        <Typography align="center" style={top} className="top" variant="body2" color="textSecondary" component="p">
           click here to to veiw all reports made on faulty streetlights. 
         </Typography>
       </CardContent>
@@ -88,10 +87,10 @@ return(
     <Card style={cardstyle}> 
     <CardActionArea>
       <CardContent style={cont}> 
-        <Typography style={top} className="top" gutterBottom variant="h5" component="h2">
+        <Typography align="center" style={top} className="top" gutterBottom variant="h5" component="h2">
           Road Blockage
         </Typography>
-        <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
+        <Typography align="center" style={top} className="top" variant="body2" color="textSecondary" component="p">
           click here to to view all reports made on road blockages.
         </Typography>
       </CardContent>

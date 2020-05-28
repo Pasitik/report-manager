@@ -50,10 +50,10 @@ export default function Front() {
     <Card style={cardStyle}> 
     <CardActionArea>
       <CardContent style={cont}> 
-        <Typography style={top} className="top" gutterBottom variant="h5" component="h2">
+        <Typography style={top} align="center" className="top" gutterBottom variant="h5" component="h2">
           Security
         </Typography>
-        <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
+        <Typography style={top} align="center" className="top" variant="body2" color="textSecondary" component="p">
           click here to proceed if you are a road maintenance personell (people who work at roads and highways, 
           town and county planning and all other departments involved in road maintenance). 
         </Typography>
@@ -66,10 +66,10 @@ export default function Front() {
     <Card style={cardStyle}> 
     <CardActionArea>
       <CardContent style={cont}>
-        <Typography style={top} className="top" gutterBottom variant="h5" component="h2">
+        <Typography style={top} align="center" className="top" gutterBottom variant="h5" component="h2">
           Maintenance
         </Typography>
-        <Typography style={top} className="top" variant="body2" color="textSecondary" component="p">
+        <Typography style={top} align="center" className="top" variant="body2" color="textSecondary" component="p">
           click here to proceed if you are a security personnel(the police service, fireservice, red-cross, media etc.)
         </Typography>
       </CardContent>

@@ -4,26 +4,37 @@ import './App.css';
 import Login from "./components/login/login";  
 import Home from "./components/screens/home"; 
 import Front from "./components/screens/front"; 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'; 
+import ReactDOM from "react-dom";
+import { createBrowserHistory } from "history";
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'; 
 import Maintenance from './components/screens/maintenancesDash'; 
 import { AuthProvider } from "./auth.js" 
 import PrivateRoute from "./PrivateRoute";
-import Dashboard from './components/screens/Dashboard';
+import Dashboard from './components/screens/Dashboard'; 
+import Admin from "./layouts/Admin.js";
+import RTL from "./layouts/RTL.js";
 
+import "./assets/css/material-dashboard-react.css?v=1.9.0";
+
+
+const hist = createBrowserHistory();
 
 function App() {
   return (  
       <AuthProvider>
-      <Router>
+      <Router history={hist}>
       <Switch> 
       <PrivateRoute exact path="/" component={Maintenance} />  
-      <Route exact path="/login" component={Login} />  
+      <Route exact path="/login" component={Admin} />  
       <Route exact path="/front" component={Front} />  
       <Route exact path="/home" component={Home} />  
-      <Route exact path="/dashboard" component={Dashboard} />  
+      <Route exact path="/dashboard" component={Dashboard} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/rtl" component={RTL} />
+      <Redirect from="/" to="/admin/dashboard" />  
       </Switch>
       </Router>
-      </AuthProvider>
+      </AuthProvider> 
           );
       } 
 
