@@ -8,7 +8,7 @@ import dropdownStyle from "../../material-dashboard-react/dropdownStyle.js";
 
 const headerLinksStyle = theme => ({
   ...dropdownStyle(theme),
-  search: {
+  /*search: {
     "& > div": {
       marginTop: "0"
     },
@@ -24,7 +24,7 @@ const headerLinksStyle = theme => ({
         color: whiteColor
       }
     }
-  },
+  },*/
   linkText: {
     zIndex: "4",
     ...defaultFont,
@@ -56,7 +56,7 @@ const headerLinksStyle = theme => ({
       }
     }
   },
-  searchButton: {
+ /* searchButton: {
     [theme.breakpoints.down("sm")]: {
       top: "-50px !important",
       marginRight: "22px",
@@ -70,7 +70,7 @@ const headerLinksStyle = theme => ({
   searchIcon: {
     width: "17px",
     zIndex: "4"
-  },
+  },*/
   notifications: {
     zIndex: "4",
     [theme.breakpoints.up("md")]: {
@@ -101,13 +101,13 @@ const headerLinksStyle = theme => ({
     },
     display: "inline-block"
   },
-  searchWrapper: {
+  /*searchWrapper: {
     [theme.breakpoints.down("sm")]: {
       width: "-webkit-fill-available",
       margin: "10px 15px 0"
     },
     display: "inline-block"
-  }
+  }*/
 });
 
 export default headerLinksStyle;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Typography, IconButton, FormControlLabel, Switch, Icon, Button } from '@material-ui/core';
+import { Container, Typography, FormControlLabel, Switch, Button } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

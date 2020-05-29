@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from 'react-router-dom'
 // @material-ui/core components
 
-import { Container, Typography, IconButton, FormControlLabel, Switch, Icon, Button } from '@material-ui/core';
+import { Container, FormControlLabel, Switch, Button } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,9 +14,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 // core components
-import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
+//import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
 
-const useStyles = makeStyles(styles);
+//const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) { 
   const StyledTableCell = withStyles((theme) => ({
@@ -77,7 +77,7 @@ export default function CustomTable(props) {
   
   
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+  //const { tableHead, tableData, tableHeaderColor } = props;
   return (
     <div className={classes.tableResponsive}>
       <Container style={{ marginTop: '6em' }}>

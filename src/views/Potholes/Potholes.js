@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 // @material-ui/core components
 
-import { Container, Typography, IconButton, FormControlLabel, Switch, Icon, Button } from '@material-ui/core';
+import { Container, FormControlLabel, Switch, Button } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,9 +15,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 // core components
-import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
+//import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
 
-const useStyles = makeStyles(styles);
+//const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) { 
   const StyledTableCell = withStyles((theme) => ({
@@ -61,13 +61,13 @@ export default function CustomTable(props) {
   }
   
   const rows = [
-      createData(1, 'Faulty Street Lights', '20-05-2020'),
-      createData(2, 'Faulty Street Lights', '26-05-2020'),
-      createData(4, 'Faulty Street Lights', '24-05-2020'),
-      createData(3, 'Faulty Street Lights', '22-05-2020'),
-      createData(5, 'Faulty Street Lights', '23-05-2020'),
-      createData(6, 'Faulty Street Lights', '27-05-2020'),
-      createData(7, 'Faulty Street Lights', '26-05-2020'),
+      createData(1, 'Potholes', '20-05-2020'),
+      createData(2, 'Potholes', '26-05-2020'),
+      createData(4, 'Potholes', '24-05-2020'),
+      createData(3, 'Potholes', '22-05-2020'),
+      createData(5, 'Potholes', '23-05-2020'),
+      createData(6, 'Potholes', '27-05-2020'),
+      createData(7, 'Potholes', '26-05-2020'),
   ]
   
   const useStyles = makeStyles({
@@ -78,7 +78,7 @@ export default function CustomTable(props) {
   
   
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+ //const { tableHead, tableData, tableHeaderColor } = props;
   return (
     <div className={classes.tableResponsive}>
       <Container style={{ marginTop: '6em' }}>

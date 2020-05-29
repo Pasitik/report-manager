@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css'; 
-import Login from "./components/login/login";  
+//import Login from "./components/login/login";  
 import Home from "./components/screens/home"; 
 import Front from "./components/screens/front"; 
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'; 
 import Maintenance from './components/screens/maintenancesDash'; 

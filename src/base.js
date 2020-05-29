@@ -1,4 +1,4 @@
-import Rebase from "re-base";  
+//import Rebase from "re-base";  
 import firebase from "firebase";  
 import "firebase/auth";
 
