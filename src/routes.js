@@ -31,7 +31,7 @@ import TableList from "./views/TrafficProblems/TrafficProblems";
 import Typography from "./views/StreetLights/StreetLights.js";
 import Icons from "./views/Potholes/Potholes.js";
 import Maps from "./views/Maps/Maps.js";
-import NotificationsPage from "./views/Notifications/Notifications.js";
+import NotificationsPage from "./views/Administrator/Administrator.js";
 // core components/views for RTL layout
 import RTLPage from "./views/Car_Breakdown/Car_Breakdown.js";
 import Accidents from "./views/Accidents/Accidents.js";
@@ -104,8 +104,8 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/notifications",
-    name: "Notifications",
+    path: "/Admin",
+    name: "Admin(manage users)",
     icon: Notifications,
     component: NotificationsPage,
     layout: "/admin"

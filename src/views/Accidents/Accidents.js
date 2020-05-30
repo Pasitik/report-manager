@@ -61,13 +61,13 @@ export default function Accidents(props) {
   }
   
   const rows = [
-      createData(1, 'Potholes', '20-05-2020'),
-      createData(2, 'Potholes', '26-05-2020'),
-      createData(4, 'Potholes', '24-05-2020'),
-      createData(3, 'Potholes', '22-05-2020'),
-      createData(5, 'Potholes', '23-05-2020'),
-      createData(6, 'Potholes', '27-05-2020'),
-      createData(7, 'Potholes', '26-05-2020'),
+      createData(1, 'Accidents', '20-05-2020'),
+      createData(2, 'Accidents', '26-05-2020'),
+      createData(4, 'Accidents', '24-05-2020'),
+      createData(3, 'Accidents', '22-05-2020'),
+      createData(5, 'Accidents', '23-05-2020'),
+      createData(6, 'Accidents', '27-05-2020'),
+      createData(7, 'Accidents', '26-05-2020'),
   ]
   
   const useStyles = makeStyles({
