@@ -12,7 +12,7 @@ import { AuthProvider } from "./auth.js"
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from './components/screens/Dashboard'; 
 import Admin from "./layouts/Admin.js";
-import RTL from "./layouts/RTL.js";
+//import RTL from "./layouts/RTL.js";
 
 import "./assets/css/material-dashboard-react.css?v=1.9.0";
 import Maps from './views/Maps/Maps';
@@ -32,7 +32,6 @@ function App() {
       <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/maps" component={Maps} />
       <Route path="/admin" component={Admin} />
-      <Route path="/rtl" component={RTL} />
       <Redirect from="/" to="/admin/dashboard" />  
       </Switch>
       </Router>

@@ -34,6 +34,8 @@ import Maps from "./views/Maps/Maps.js";
 import NotificationsPage from "./views/Notifications/Notifications.js";
 // core components/views for RTL layout
 import RTLPage from "./views/Car_Breakdown/Car_Breakdown.js";
+import Accidents from "./views/Accidents/Accidents.js";
+import Robbery from "./views/Robbery/Robbery.js";
 
 const dashboardRoutes = [
   {
@@ -77,7 +79,23 @@ const dashboardRoutes = [
     icon: Language,
     component: RTLPage,
     layout: "/admin"
+  }, 
+  {
+    path: "/accidents",
+    name: "Accidents",
+    icon: Language,
+    component: Accidents,
+    layout: "/admin"
+  }, 
+
+  {
+    path: "/robbery",
+    name: "Robbery",
+    icon: LibraryBooks,
+    component: Robbery,
+    layout: "/admin"
   },
+
   {
     path: "/maps",
     name: "Maps",
