@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,9 +20,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogTitle from '@material-ui/core/DialogTitle'; 
 
-const styles = (theme) => ({
+
+
+const styles = (theme,props) => ({
   paper: {
     maxWidth: 936,
     margin: 'auto',
@@ -56,7 +58,15 @@ function Content(props) {
   const handleClose = () => {
     setOpen(false);
   }; 
+  
+  
+  /*const [uEmail, setEmail] = useState(''); 
+  const [uPassword, setPassword] = useState(''); 
+  const [formValid, setFormValid] = useState(false);  
+  const [formData, setFormData] = useState([]); */
+  
 
+   
  
   return (
     <Paper className={classes.paper}>
@@ -80,25 +90,28 @@ function Content(props) {
               <Button variant="contained" color="primary" className={classes.addUser} onClick={handleClickOpen}>
                 Add user
               </Button> 
-                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title"> 
                       <DialogTitle id="form-dialog-title">ADD USER</DialogTitle>
                       <DialogContent>
                         <DialogContentText>
                           Create new user by adding a valid email and a password. Also select at least one of the check boxes 
                           to establish User's role.
-                        </DialogContentText>
+                        </DialogContentText> 
+                        
                         <TextField
                           autoFocus
                           margin="dense"
-                          id="mail"
+                          id="mail" 
+                          name="email"
                           label="Email Address"
                           type="email"
-                          fullWidth
+                          fullWidth 
                         /> 
                          <TextField
                           autoFocus
                           margin="dense"
-                          id="Pass"
+                          id="Pass" 
+                          name="password" 
                           label="Password"
                           type="Password"
                           fullWidth
@@ -106,7 +119,8 @@ function Content(props) {
                         <FormControlLabel control={<Checkbox name="checkedC" />} label="Admin" /> 
                         <FormControlLabel control={<Checkbox name="checkedC" />} label="Security" />
                         <FormControlLabel control={<Checkbox name="checkedC" />} label="Maintenance" />
-                        <FormControlLabel control={<Checkbox name="checkedC" />} label="Media" />
+                        <FormControlLabel control={<Checkbox name="checkedC" />} label="Media" /> 
+                        
                       </DialogContent>
                       <DialogActions>
                         <Button onClick={handleClose} color="primary">
@@ -115,7 +129,7 @@ function Content(props) {
                         <Button onClick={handleClose} color="primary">
                           Add User
                         </Button>
-                      </DialogActions>
+                      </DialogActions> 
                     </Dialog>
               <Tooltip title="Reload">
                 <IconButton>
@@ -126,10 +140,10 @@ function Content(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div className={classes.contentWrapper}>
-        <Typography color="textSecondary" align="center">
-          No users for this project yet
-        </Typography>
+      <div className={classes.contentWrapper}> 
+      <Typography> 
+        No users have been added yet 
+      </Typography>
       </div>
     </Paper>
   );
