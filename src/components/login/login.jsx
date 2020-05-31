@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from "react"; 
+import React, {useCallback, useContext, useState} from "react"; 
 //import Home from "../../App"; 
 import {Link} from "react-router-dom" 
 import {Redirect} from "react-router";
@@ -11,51 +11,74 @@ import { Formik } from "formik";
 //import * as Yup from "yup";
 import "../../style.scss";
 //import { stringify } from "querystring"; 
-import app from "../../base.js"; 
+// import app from "../../Firebase/base"; 
+import firebase from 'firebase';
 import { AuthContext } from "../../auth.js"
 
 
 
 const Login = ({ history }) => { 
+  const [user, setUser] = useState({});
   const hanleLogin = useCallback( 
     async event => { 
       event.preventDefault(); 
       const {email, password} = event.target.elements; 
-      try{ 
-        await app
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
-          history.push("/"); 
-      } catch (error) { 
-        alert(error);
-      } 
+      console.log(email)
+
+      // try{ 
+      //   await app
+      //     .auth()
+      //     .signInWithEmailAndPassword(email.value, password.value);
+      //     history.push("/"); 
+      // } catch (error) { 
+      //   alert(error);
+      // } 
     }, 
     [history]
   ); 
+
+  function handleChange(event) {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  }
+
 
   const { currentUser } = useContext(AuthContext); 
 
   if(currentUser){ 
     return <Redirect to = "/" />
   }
+
+  function handleSubmit(){
+    firebase.auth().signInWithEmailAndPassword(user.email, user.password).catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(`error code ${errorCode}  `)
+    console.log(`error message ${errorMessage}  `)
+    
+  });
+  
+}
+
   
 return(
 <Formik
     initialValues={{ email: "", password: ""}}
     onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        console.log("Logging in", values);
-        setSubmitting(false);
-      }, 500);
+      console.log("hello")
+      // setTimeout(() => {
+      //   console.log("Logging in", values);
+      //   setSubmitting(false);
+      // }, 500);
     }} 
+    
     //validation logic  
     validate={values => {
       let errors = {}; 
     
-      if (!values.userID) {
+      if (!user.email) {
         errors.userID = "user Id field equired!";
       } 
-      if (!values.password) {
+      if (!user.password) {
         errors.password = "password field required!";
       }  
 
@@ -71,9 +94,9 @@ return(
         touched,
         errors,
         isSubmitting,
-        handleChange,
+        //handleChange,
         handleBlur,
-        handleSubmit,
+        //handleSubmit,
         history
       } = props; 
      // const{history}=props; 
@@ -92,9 +115,9 @@ return(
                 id="email"
                 name="email"
                 placeholder="email"  
-                value={values.email}
+                //value={values.email}
                 onChange={handleChange}
-                onBlur={handleBlur}
+                // onBlur={handleBlur}
                className={errors.email && touched.email && "error"} 
                 /> 
                 {errors.email && touched.email && (
@@ -107,7 +130,7 @@ return(
                 id="password" 
                 name="password" 
                 placeholder="password"
-                value={values.password}
+                //value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
                className={errors.password && touched.password && "error"}
@@ -119,7 +142,7 @@ return(
             </form> 
           </div>
           <div className="footer"> 
-            <Button as = {Link}  to="/home" type="submit">
+            <Button as = {Link}  to="/home" onClick={handleSubmit}>
               Login
             </Button>  
           </div> 

@@ -1,7 +1,7 @@
 import React from 'react';
 //import logo from './logo.svg';
 import './App.css'; 
-//import Login from "./components/login/login";  
+import Login from "./components/login/login";  
 import Home from "./components/screens/home"; 
 import Front from "./components/screens/front"; 
 //import ReactDOM from "react-dom";
@@ -25,8 +25,8 @@ function App() {
       <AuthProvider>
       <Router history={hist}>
       <Switch> 
-      <PrivateRoute exact path="/" component={Maintenance} />  
-      <Route exact path="/login" component={Admin} />  
+      <PrivateRoute exact path="/" component={Front} />  
+      <Route exact path="/login" component={Login} />  
       <Route exact path="/front" component={Front} />  
       <Route exact path="/home" component={Home} />  
       <Route exact path="/dashboard" component={Dashboard} />

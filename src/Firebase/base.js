@@ -1,8 +1,4 @@
-//import Rebase from "re-base";  
-import firebase from "firebase";  
-import "firebase/auth";
-
-    const firebaseConfig = {
+const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
     databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
@@ -12,8 +8,4 @@ import "firebase/auth";
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
   }; 
-
-  const app = firebase.initializeApp(firebaseConfig) 
-  //const base = Rebase.createClass(app.database()) 
-
-  export default app;
+export default firebaseConfig;
