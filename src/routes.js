@@ -36,11 +36,12 @@ import NotificationsPage from "./views/Administrator/Administrator.js";
 import RTLPage from "./views/Car_Breakdown/Car_Breakdown.js";
 import Accidents from "./views/Accidents/Accidents.js";
 import Robbery from "./views/Robbery/Robbery.js";
+import SecDash from "./views/Dashboard/SecDash.js";
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Dashboard(Maintenance)",
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin"
@@ -78,6 +79,13 @@ const dashboardRoutes = [
     name: "Car breakdown",
     icon: Language,
     component: RTLPage,
+    layout: "/admin"
+  }, 
+  {
+    path: "/secDash",
+    name: "Dashboard(Security)",
+    icon: Language,
+    component: SecDash,
     layout: "/admin"
   }, 
   {
