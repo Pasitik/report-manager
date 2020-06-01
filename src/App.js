@@ -25,7 +25,7 @@ function App() {
       <AuthProvider>
       <Router history={hist}>
       <Switch> 
-      <PrivateRoute exact path="/" component={Front} />  
+      <PrivateRoute exact path="/" component={Admin} />  
       <Route exact path="/login" component={Login} />  
       <Route exact path="/front" component={Front} />  
       <Route exact path="/home" component={Home} />  

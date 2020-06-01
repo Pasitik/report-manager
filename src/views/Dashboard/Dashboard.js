@@ -28,16 +28,21 @@ import CardHeader from "../../components/Card/CardHeader.js";
 import CardIcon from "../../components/Card/CardIcon.js";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
+import Pending from "./problems/pendingReports";
+import Potholes from "./problems/potholes";
+import Button from "@material-ui/core/Button";
 
 //import { bugs, website, server } from "../../variables/general.js";
 
 import {
   dailySalesChart,
   emailsSubscriptionChart,
- // completedTasksChart
+  // completedTasksChart
 } from "../../variables/charts.js";
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import StreetLight from "./problems/streetlights.js";
+import TrafficLights from "./problems/trafficlights.js";
 
 const useStyles = makeStyles(styles);
 
@@ -46,7 +51,6 @@ export default function Dashboard() {
   return (
     <div>
       <GridContainer>
-        
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="success" stats icon>
@@ -54,7 +58,10 @@ export default function Dashboard() {
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>Total Pending Reports</p>
-              <h3 className={classes.cardTitle}> 28</h3>
+              <h3 className={classes.cardTitle}>
+                {" "}
+                <Pending></Pending>
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -68,9 +75,18 @@ export default function Dashboard() {
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon> </Icon>
-              </CardIcon><br/><br/><br/>
-              <p className={classes.cardCategory} align="center"> Total Fixed Issues</p>
-              <h3 className={classes.cardTitle} align= "center"> 0</h3>
+              </CardIcon>
+              <br />
+              <br />
+              <br />
+              <p className={classes.cardCategory} align="center">
+                {" "}
+                Total Fixed Issues
+              </p>
+              <h3 className={classes.cardTitle} align="center">
+                {" "}
+                0
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -152,10 +168,21 @@ export default function Dashboard() {
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>Traffic lights issues </Icon>
-              </CardIcon><br/><br/><br/>
-              <p className={classes.cardCategory} align="center"> Traffic lights issues</p>
-              <h3 className={classes.cardTitle} align= "center">Fixed: 0</h3><br/> 
-              <h3 className={classes.cardTitle} align= "center">Pending: 7</h3>
+              </CardIcon>
+              <br />
+              <br />
+              <br />
+              <p className={classes.cardCategory} align="center">
+                {" "}
+                Traffic lights issues
+              </p>
+              <h3 className={classes.cardTitle} align="center">
+                Fixed: 0
+              </h3>
+              <br />
+              <h3 className={classes.cardTitle} align="center">
+                Pending: <TrafficLights></TrafficLights>
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -163,16 +190,22 @@ export default function Dashboard() {
               </div>
             </CardFooter>
           </Card>
-        </GridItem> 
+        </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
-                <Icon>Car breakdown </Icon>
-              </CardIcon><br/><br/><br/>
-              <p className={classes.cardCategory} align="center"> Strunded vehicles</p>
-              <h3 className={classes.cardTitle} align= "center">Fixed: 0</h3><br/> 
-              <h3 className={classes.cardTitle} align= "center">Pending: 7</h3>
+                <Icon> Car Breakdown </Icon>
+              </CardIcon>
+              <br />
+              <br />
+              <br />
+              <p className={classes.cardCategory} align="center">
+                {" "}
+                A car is strunded on the road!
+              </p>
+              <br />
+              <Button color="secondary"> View Location on Map </Button>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -180,16 +213,27 @@ export default function Dashboard() {
               </div>
             </CardFooter>
           </Card>
-        </GridItem> 
+        </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>Street lights issues </Icon>
-              </CardIcon><br/><br/><br/>
-              <p className={classes.cardCategory} align="center"> Street lights issues</p>
-              <h3 className={classes.cardTitle} align= "center">Fixed: 0</h3><br/> 
-              <h3 className={classes.cardTitle} align= "center">Pending: 7</h3>
+              </CardIcon>
+              <br />
+              <br />
+              <br />
+              <p className={classes.cardCategory} align="center">
+                {" "}
+                Street lights issues
+              </p>
+              <h3 className={classes.cardTitle} align="center">
+                Fixed: 0
+              </h3>
+              <br />
+              <h3 className={classes.cardTitle} align="center">
+                Pending: <StreetLight></StreetLight>
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -203,10 +247,21 @@ export default function Dashboard() {
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>Potholes issues </Icon>
-              </CardIcon><br/><br/><br/>
-              <p className={classes.cardCategory} align="center"> Potholes issues</p>
-              <h3 className={classes.cardTitle} align= "center">Fixed: 0</h3><br/> 
-              <h3 className={classes.cardTitle} align= "center">Pending: 7</h3>
+              </CardIcon>
+              <br />
+              <br />
+              <br />
+              <p className={classes.cardCategory} align="center">
+                {" "}
+                Potholes issues
+              </p>
+              <h3 className={classes.cardTitle} align="center">
+                Fixed: 0
+              </h3>
+              <br />
+              <h3 className={classes.cardTitle} align="center">
+                Pending: <Potholes></Potholes>
+              </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -216,7 +271,6 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
-      
     </div>
   );
 }
