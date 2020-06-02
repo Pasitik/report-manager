@@ -84,7 +84,7 @@ const dashboardRoutes = [
   {
     path: "/secDash",
     name: "Dashboard(Security)",
-    icon: Language,
+    icon: Dashboard,
     component: SecDash,
     layout: "/admin"
   }, 

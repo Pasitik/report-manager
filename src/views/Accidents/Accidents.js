@@ -1,6 +1,11 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import firebase from "firebase"; 
+import { usePosition } from 'use-position';
+import geohash from "ngeohash";
+import { Firestore } from "@google-cloud/firestore";
+
 
 // @material-ui/core components
 
@@ -55,20 +60,78 @@ export default function Accidents(props) {
       },
     },
   }))(TableRow);
+
+  const {
+    latitude,
+    longitude,
+  } = usePosition();  
+
+  const getGeohashRange = (
+    latitude= {latitude},
+    longitude={longitude},
+    distance = 15.5343, // miles
+  ) => {
+    const lat = 0.0144927536231884; // degrees latitude per mile
+    const lon = 0.0181818181818182; // degrees longitude per mile
   
-  function createData(number, problem, date, actions) {
-    return { number, problem, date, actions };
+    const lowerLat = latitude - lat * distance;
+    const lowerLon = longitude - lon * distance;
+  
+    const upperLat = latitude + lat * distance;
+    const upperLon = longitude + lon * distance;
+  
+    const lower = geohash.encode(lowerLat, lowerLon);
+    const upper = geohash.encode(upperLat, upperLon);
+  
+    return {
+      lower,
+      upper
+    };
+  };
+  
+  const firestore = new Firestore();
+
+  function createData(info, timestamp, actions) {
+    return { info, timestamp, actions };
   }
+
+  //var snapShot = firestore.collection("Accidents").get();
+  var accident = getAccidents();
+
+  async function getAccidents() {
+    var snapShot = await firestore.collection("accident").get();
+
+    return snapShot.docs.length;
+  }
+
+
+//const[rows, setRows] = useState([]); 
+let rows=[]; 
+
+    // Retrieve the current coordinates using the navigator API
+  navigator.geolocation.getCurrentPosition(position => {
+  const { latitude, longitude } = position.coords;
+  const range = getGeohashRange(latitude, longitude, 10);
+  firestore
+    .collection("Accidents")
+    .where("geohash", ">=", range.lower)
+    .where("geohash", "<=", range.upper)
+    .onSnapshot(snapshot => { 
+       //rows = [];
+      // Your own custom logic here 
+      for(var i=0; i>=accident; i++){  
+     var a = firestore.collection("accident").doc().get("/info");
+     var b = firestore.collection("accident").doc().get("/timestamp");
+     
+
+        rows.push(createData(a,b)); 
+      //return rows=[{setRows}]
+      }
+      console.log(snapshot.docs)
+    })
+})
+     // createData(1, 'Accidents', '20-05-2020'),
   
-  const rows = [
-      createData(1, 'Accidents', '20-05-2020'),
-      createData(2, 'Accidents', '26-05-2020'),
-      createData(4, 'Accidents', '24-05-2020'),
-      createData(3, 'Accidents', '22-05-2020'),
-      createData(5, 'Accidents', '23-05-2020'),
-      createData(6, 'Accidents', '27-05-2020'),
-      createData(7, 'Accidents', '26-05-2020'),
-  ]
   
   const useStyles = makeStyles({
     table: {
@@ -89,7 +152,6 @@ export default function Accidents(props) {
             <Table className={classes.table} aria-label='customized table'>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>#</StyledTableCell>
                   <StyledTableCell align='center'>Problem</StyledTableCell>
                   <StyledTableCell align='center'>Date</StyledTableCell>
                   <StyledTableCell align='center'>Actions</StyledTableCell>
@@ -97,14 +159,11 @@ export default function Accidents(props) {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <StyledTableRow key={row.number}>
-                    <StyledTableCell component='th' scope='row'>
-                      {row.number}
-                    </StyledTableCell>
+                  <StyledTableRow>
                     <StyledTableCell align='center'>
-                      {row.problem}
+                      {row.info}
                     </StyledTableCell>
-                    <StyledTableCell align='center'>{row.date}</StyledTableCell>
+                    <StyledTableCell align='center'>{row.timestamp}</StyledTableCell>
                     <StyledTableCell align='center'>
                       {switchButton}
                       {button}
