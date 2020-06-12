@@ -2,9 +2,8 @@ import React,{ useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import firebase from "firebase"; 
-import { usePosition } from 'use-position';
 import geohash from "ngeohash";
-import { Firestore } from "@google-cloud/firestore";
+import {usePosition} from "use-position";
 
 
 // @material-ui/core components
@@ -18,6 +17,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { number } from "yup";
 
 // core components
 //import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
@@ -34,8 +34,8 @@ export default function Accidents(props) {
       fontSize: 14,
     },
   }))(TableCell);
-  
-  const button = (
+ 
+  const button = ( 
     <Button
       component={Link}
       variant='contained'
@@ -60,16 +60,11 @@ export default function Accidents(props) {
       },
     },
   }))(TableRow);
-
-  const {
-    latitude,
-    longitude,
-  } = usePosition();  
-
-  const getGeohashRange = (
-    latitude= {latitude},
-    longitude={longitude},
-    distance = 15.5343, // miles
+  
+  const getGeohashRange = ( 
+    latitude= number,
+    longitude= number,
+    distance = number, // miles
   ) => {
     const lat = 0.0144927536231884; // degrees latitude per mile
     const lon = 0.0181818181818182; // degrees longitude per mile
@@ -89,7 +84,8 @@ export default function Accidents(props) {
     };
   };
   
-  const firestore = new Firestore();
+  //const firestore = new Firestore();
+  const db = firebase.firestore();
 
   function createData(info, timestamp, actions) {
     return { info, timestamp, actions };
@@ -99,37 +95,71 @@ export default function Accidents(props) {
   var accident = getAccidents();
 
   async function getAccidents() {
-    var snapShot = await firestore.collection("accident").get();
+    var snapShot = await db.collection("accident").get();
 
     return snapShot.docs.length;
   }
+  const watch = true;
+  const {latitude,
+    longitude,
+    timestamp,
+    accuracy,
+    error,} = usePosition(); 
+    
+
+  //console.log(`longitude: ${lng} | latitude: ${lat}`);
+    //console.log("lat: " + latitude)
+
+const[rows, setRows] = useState([]); 
+//let rows=[]; 
+useEffect(() => { 
+   // Retrieve the current coordinates using the navigator API
+   const randomLatitude = 9.4186961;
+   const randomLongitude = -0.8192849;
+   // Get a geohash range of 10 miles on all sides;
+   const range = getGeohashRange(randomLatitude, randomLongitude, 30);
+ //rows = [];
+ db
+   .collection("Accidents")
+   .where("location.geohash", ">=", range.lower)
+   .where("location.geohash", "<=", range.upper)
+   .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const listItems = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array
+      ...doc.data(), //spread operator merges data to id. 
+    }));
+    setRows(listItems); //items is equal to listItems 
+    console.log(listItems);
+  });
+}, []);
+   
+   /**
+    * .get()
+   .then(snapshot => {
+      snapshot.forEach(doc => {   
+       //rows=[];         
+       //var snap = db.collection("Accidents").get().;  
+       var a= doc.data().info; 
+       var b= doc.data().timestamp; 
+       var query= createData(a,b);  
+       setRows([...rows, query]);
+       console.log(query); 
+       return query;  
+     }); 
+     //setRows(rows=>[...rows, ])
+   })
+   .catch(err => {
+     console.log('Error getting documents', err);
+   });
+    */
 
 
-//const[rows, setRows] = useState([]); 
-let rows=[]; 
+   // .catch(function(error) {
+      //  console.log("Error getting documents: ", error);
+    //});
 
-    // Retrieve the current coordinates using the navigator API
-  navigator.geolocation.getCurrentPosition(position => {
-  const { latitude, longitude } = position.coords;
-  const range = getGeohashRange(latitude, longitude, 10);
-  firestore
-    .collection("Accidents")
-    .where("geohash", ">=", range.lower)
-    .where("geohash", "<=", range.upper)
-    .onSnapshot(snapshot => { 
-       //rows = [];
-      // Your own custom logic here 
-      for(var i=0; i>=accident; i++){  
-     var a = firestore.collection("accident").doc().get("/info");
-     var b = firestore.collection("accident").doc().get("/timestamp");
-     
-
-        rows.push(createData(a,b)); 
-      //return rows=[{setRows}]
-      }
-      console.log(snapshot.docs)
-    })
-})
      // createData(1, 'Accidents', '20-05-2020'),
   
   
