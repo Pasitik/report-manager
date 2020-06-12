@@ -34,7 +34,6 @@ const MapComponent = compose(
       />  
   )
   } 
-  tag(9.4186961,-0.8192849)
 
    function lo(){  
     console.log(marker.length);    
@@ -42,7 +41,7 @@ const MapComponent = compose(
       let lo =  marker[i]["Ic"];
       let la= marker[i]["wc"]; 
       console.log(lo);
-     return (  tag(9.4186961,-0.8192849) )// console.log(long);
+     return (  tag(lo,la) )// console.log(long);
 
     }    
     //console.log(cont);

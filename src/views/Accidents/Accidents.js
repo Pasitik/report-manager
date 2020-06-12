@@ -106,7 +106,8 @@ export default function Accidents(props) {
     accuracy,
     error,} = usePosition(); 
     
-
+//9.4186961 
+//-0.8192849
   //console.log(`longitude: ${lng} | latitude: ${lat}`);
     //console.log("lat: " + latitude)
 
@@ -114,8 +115,8 @@ const[rows, setRows] = useState([]);
 //let rows=[]; 
 useEffect(() => { 
    // Retrieve the current coordinates using the navigator API
-   const randomLatitude = 9.4186961;
-   const randomLongitude = -0.8192849;
+   const randomLatitude = latitude;
+   const randomLongitude = longitude ;
    // Get a geohash range of 10 miles on all sides;
    const range = getGeohashRange(randomLatitude, randomLongitude, 30);
  //rows = [];
