@@ -1,8 +1,14 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
+import firebase from "firebase"; 
+import geohash from "ngeohash";
+import {usePosition} from "use-position";
+
+
 // @material-ui/core components
 
-import { Container,FormControlLabel, Switch, Button } from '@material-ui/core';
+import { Container, FormControlLabel, Switch, Button } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,15 +17,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
-
+import { number } from "yup";
 
 // core components
 //import styles from "../../assets/jss/material-dashboard-react/components/tableStyle.js";
 
 //const useStyles = makeStyles(styles);
 
-export default function CustomTable(props) { 
+export default function Accidents(props) { 
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -29,8 +34,8 @@ export default function CustomTable(props) {
       fontSize: 14,
     },
   }))(TableCell);
-  
-  const button = (
+ 
+  const button = ( 
     <Button
       component={Link}
       variant='contained'
@@ -43,9 +48,16 @@ export default function CustomTable(props) {
   );
   
   const switchButton = (
-    <FormControlLabel
-      control={<Switch />}
-    />
+    <Button
+    component={Link}
+    variant='contained'
+    color='secondary'
+    size='small'
+    //to={'/maps'} 
+    
+  >
+    Solved
+  </Button>
   );
   
   const StyledTableRow = withStyles((theme) => ({
@@ -56,19 +68,109 @@ export default function CustomTable(props) {
     },
   }))(TableRow);
   
-  function createData(number, problem, date, actions) {
-    return { number, problem, date, actions };
-  }
+  const getGeohashRange = ( 
+    latitude= number,
+    longitude= number,
+    distance = number, // miles
+  ) => {
+    const lat = 0.0144927536231884; // degrees latitude per mile
+    const lon = 0.0181818181818182; // degrees longitude per mile
   
-  const rows = [
-      createData(1, 'Car Breakdown', '20-05-2020'),
-      createData(2, 'Car Breakdown', '26-05-2020'),
-      createData(4, 'Car Breakdown', '24-05-2020'),
-      createData(3, 'Car Breakdown', '22-05-2020'),
-      createData(5, 'Car Breakdown', '23-05-2020'),
-      createData(6, 'Car Breakdown', '27-05-2020'),
-      createData(7, 'Car Breakdown', '26-05-2020'),
-  ]
+    const lowerLat = latitude - lat * distance;
+    const lowerLon = longitude - lon * distance;
+  
+    const upperLat = latitude + lat * distance;
+    const upperLon = longitude + lon * distance;
+  
+    const lower = geohash.encode(lowerLat, lowerLon);
+    const upper = geohash.encode(upperLat, upperLon);
+  
+    return {
+      lower,
+      upper
+    };
+  };
+  
+  //const firestore = new Firestore();
+  const db = firebase.firestore();
+
+  function createData(info, timestamp, actions) {
+    return { info, timestamp, actions };
+  }
+
+  //var snapShot = firestore.collection("Accidents").get();
+  var accident = getAccidents();
+
+  async function getAccidents() {
+    var snapShot = await db.collection("accident").get();
+
+    return snapShot.docs.length;
+  }
+  const watch = true;
+  const {latitude,
+    longitude,
+    timestamp,
+    accuracy,
+    error,} = usePosition(); 
+    
+
+  //console.log(`longitude: ${lng} | latitude: ${lat}`);
+    //console.log("lat: " + latitude)
+
+const[rows, setRows] = useState([]); 
+//let rows=[]; 
+useEffect(() => { 
+   // Retrieve the current coordinates using the navigator API
+   const randomLatitude = 9.4186961;
+   const randomLongitude = -0.8192849;
+   // Get a geohash range of 10 miles on all sides;
+   const range = getGeohashRange(randomLatitude, randomLongitude, 30);
+ //rows = [];
+ db
+   .collection("Car_breakdown")
+   .where("location.geohash", ">=", range.lower)
+   .where("location.geohash", "<=", range.upper)
+   .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const listItems = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      date:new Date(doc.data().timestamp)
+      .toUTCString(),
+      ...doc.data(), //spread operator merges data to id. 
+    }));
+    setRows(listItems); //items is equal to listItems 
+    console.log(listItems);
+  });
+}, []);
+   
+   /**
+    * .get()
+   .then(snapshot => {
+      snapshot.forEach(doc => {   
+       //rows=[];         
+       //var snap = db.collection("Accidents").get().;  
+       var a= doc.data().info; 
+       var b= doc.data().timestamp; 
+       var query= createData(a,b);  
+       setRows([...rows, query]);
+       console.log(query); 
+       return query;  
+     }); 
+     //setRows(rows=>[...rows, ])
+   })
+   .catch(err => {
+     console.log('Error getting documents', err);
+   });
+    */
+
+
+   // .catch(function(error) {
+      //  console.log("Error getting documents: ", error);
+    //});
+
+     // createData(1, 'Accidents', '20-05-2020'),
+  
   
   const useStyles = makeStyles({
     table: {
@@ -78,7 +180,7 @@ export default function CustomTable(props) {
   
   
   const classes = useStyles();
- // const { tableHead, tableData, tableHeaderColor } = props;
+ //const { tableHead, tableData, tableHeaderColor } = props;
   return (
     <div className={classes.tableResponsive}>
       <Container style={{ marginTop: '6em' }}>
@@ -89,7 +191,6 @@ export default function CustomTable(props) {
             <Table className={classes.table} aria-label='customized table'>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>#</StyledTableCell>
                   <StyledTableCell align='center'>Problem</StyledTableCell>
                   <StyledTableCell align='center'>Date</StyledTableCell>
                   <StyledTableCell align='center'>Actions</StyledTableCell>
@@ -97,12 +198,9 @@ export default function CustomTable(props) {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <StyledTableRow key={row.number}>
-                    <StyledTableCell component='th' scope='row'>
-                      {row.number}
-                    </StyledTableCell>
+                  <StyledTableRow>
                     <StyledTableCell align='center'>
-                      {row.problem}
+                      {row.info}
                     </StyledTableCell>
                     <StyledTableCell align='center'>{row.date}</StyledTableCell>
                     <StyledTableCell align='center'>
@@ -119,11 +217,11 @@ export default function CustomTable(props) {
   );
 }
 
-CustomTable.defaultProps = {
+Accidents.defaultProps = {
   tableHeaderColor: "gray"
 };
 
-CustomTable.propTypes = {
+Accidents.propTypes = {
   tableHeaderColor: PropTypes.oneOf([
     "warning",
     "primary",

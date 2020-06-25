@@ -48,9 +48,16 @@ export default function Accidents(props) {
   );
   
   const switchButton = (
-    <FormControlLabel
-      control={<Switch />}
-    />
+    <Button
+    component={Link}
+    variant='contained'
+    color='secondary'
+    size='small'
+    //to={'/maps'} 
+    
+  >
+    Solved
+  </Button>
   );
   
   const StyledTableRow = withStyles((theme) => ({
@@ -106,8 +113,7 @@ export default function Accidents(props) {
     accuracy,
     error,} = usePosition(); 
     
-//9.4186961 
-//-0.8192849
+
   //console.log(`longitude: ${lng} | latitude: ${lat}`);
     //console.log("lat: " + latitude)
 
@@ -115,8 +121,8 @@ const[rows, setRows] = useState([]);
 //let rows=[]; 
 useEffect(() => { 
    // Retrieve the current coordinates using the navigator API
-   const randomLatitude = latitude;
-   const randomLongitude = longitude ;
+   const randomLatitude = 9.4186961;
+   const randomLongitude = -0.8192849;
    // Get a geohash range of 10 miles on all sides;
    const range = getGeohashRange(randomLatitude, randomLongitude, 30);
  //rows = [];
@@ -128,7 +134,9 @@ useEffect(() => {
     //You can "listen" to a document with the onSnapshot() method.
     const listItems = snapshot.docs.map(doc => ({
       //map each document into snapshot
-      //id: doc.id, //id and data pushed into items array
+      //id: doc.id, //id and data pushed into items array 
+      date:new Date(doc.data().timestamp)
+      .toUTCString(),
       ...doc.data(), //spread operator merges data to id. 
     }));
     setRows(listItems); //items is equal to listItems 
@@ -194,7 +202,7 @@ useEffect(() => {
                     <StyledTableCell align='center'>
                       {row.info}
                     </StyledTableCell>
-                    <StyledTableCell align='center'>{row.timestamp}</StyledTableCell>
+                    <StyledTableCell align='center'>{row.date}</StyledTableCell>
                     <StyledTableCell align='center'>
                       {switchButton}
                       {button}

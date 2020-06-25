@@ -59,23 +59,7 @@ const MapComponent = compose(
   </GoogleMap> 
   return mark;
 });  
-//for (let i = 0; i <= marker.length; i++) {
-    //const element = marker[i];
-   // console.log(element)} 
-   
- // if (marker!=null) {
-      
-     // if(marker=!null) {
-       // const element = long[i];
-     // }
-      // var q=marker[i];
-     // console.log(long,latti);}
-   /* return( 
-    <Marker 
-      position={q}
-      onClick={props.onMarkerClick}
-    />  
-    )*///}
+
   
 let [long , setLong]=useState([]); 
 let [lati , setLati]=useState([]);
