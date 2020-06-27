@@ -13,14 +13,27 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "../../components/Navbars/AdminNavbarLinks.js";
-//import RTLNavbarLinks from "../../components/Navbars/RTLNavbarLinks.js";
+//import RTLNavbarLinks from "../../components/Navbars/RTLNavbarLinks.js"; 
+import firebase from "firebase"; 
+
 
 import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle.js";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
-export default function Sidebar(props) {
+export default function Sidebar(props) { 
   const classes = useStyles();
+  function out(){ 
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log("Sign out successful")
+      props.history.push('/login')
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error)
+    });
+  }
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
@@ -43,7 +56,8 @@ export default function Sidebar(props) {
         }
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
-        });
+        }); 
+
         return (
           <NavLink
             to={prop.layout + prop.path}
@@ -138,7 +152,12 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.sidebarWrapper}>
+            {links}
+            <Button color="secondary" onClick={out}>Signout</Button>
+            </div> 
+          
+
           {image !== undefined ? (
             <div
               className={classes.background}

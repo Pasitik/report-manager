@@ -105,7 +105,7 @@ return(
         <div className="base-container"> 
         <Card className="myCard"> 
           <CardContent>
-          <div className="header">Maintenance Login</div>
+          <div className="header" align="center">Login</div>
           <div className="content">
             <form className="form" onSubmit={hanleLogin}> 
             
@@ -141,7 +141,7 @@ return(
               </div>
             </form> 
           </div>
-          <div className="footer"> 
+          <div className="footer" align="center"> 
             <Button as = {Link}  to="/home" onClick={handleSubmit}>
               Login
             </Button>  
