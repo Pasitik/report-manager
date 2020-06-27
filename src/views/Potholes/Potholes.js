@@ -94,9 +94,9 @@ export default function Accidents(props) {
   //const firestore = new Firestore();
   const db = firebase.firestore();
 
-  function createData(info, timestamp, actions) {
-    return { info, timestamp, actions };
-  }
+ // function createData(info, timestamp, actions) {
+  //  return { info, timestamp, actions };
+ // }
 
   //var snapShot = firestore.collection("Accidents").get();
   var accident = getAccidents();
@@ -144,33 +144,7 @@ useEffect(() => {
   });
 }, []);
    
-   /**
-    * .get()
-   .then(snapshot => {
-      snapshot.forEach(doc => {   
-       //rows=[];         
-       //var snap = db.collection("Accidents").get().;  
-       var a= doc.data().info; 
-       var b= doc.data().timestamp; 
-       var query= createData(a,b);  
-       setRows([...rows, query]);
-       console.log(query); 
-       return query;  
-     }); 
-     //setRows(rows=>[...rows, ])
-   })
-   .catch(err => {
-     console.log('Error getting documents', err);
-   });
-    */
-
-
-   // .catch(function(error) {
-      //  console.log("Error getting documents: ", error);
-    //});
-
-     // createData(1, 'Accidents', '20-05-2020'),
-  
+   
   
   const useStyles = makeStyles({
     table: {

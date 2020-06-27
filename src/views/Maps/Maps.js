@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { compose, withProps } from 'recompose'; 
 import firebase from "firebase"; 
 import geohash from "ngeohash";
-import { number } from "yup"; 
+import { number, array } from "yup"; 
 import fetch from "isomorphic-fetch";
 import {
   withScriptjs,
@@ -11,12 +11,12 @@ import {
   Marker,
 } from 'react-google-maps';
 
-export default function Maps(props) { 
+export default function Maps() { 
 
 const MapComponent = compose( 
   withProps({
     googleMapURL:
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyDanEc0d2_0dClacfkr2t9qmX1w7G2QJDA',
+      'https://maps.googleapis.com/maps/api/js?key=',
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `90vh`, marginTop: '2rem' }} />,
     mapElement: <div style={{ height: `100%` }} />,
@@ -26,43 +26,26 @@ const MapComponent = compose(
 ) 
 (props => { 
 
-  function tag(latitude, longitude) { 
-    return(
-      <Marker 
-        position={{ lat:  latitude, lng: longitude }}
-        onClick={props.onMarkerClick}
-      />  
-  )
-  } 
+ 
+    function displayMarkers (){ 
+      return Object.values(marker).map((marker, index) => {
+        return <Marker key={index} id={index} position={{
+         lat:Number(marker.Ic),
+         lng:Number(marker.wc)
+       }} 
+       onClick={() => console.log("You clicked me!")} />
+      })
+    }
 
-   function lo(){  
-    console.log(marker.length);    
-      for (let i = 0; i <= marker.length; i++) { 
-      let lo =  marker[i]["Ic"];
-      let la= marker[i]["wc"]; 
-      console.log(lo);
-     return (  tag(lo,la) )// console.log(long);
 
-    }    
-    //console.log(cont);
-}
-
-   //      let latti = marker[i]["wc"]        
-
-  // function la() { var latti = marker.map(items=>{return items.wc}) }
  const mark= <GoogleMap  
     defaultZoom={15}
     defaultCenter={{ lat:  9.4186961, lng: -0.8192849 }}
   >  
-  {lo()}   
-
+  { displayMarkers() }
   </GoogleMap> 
   return mark;
 });  
-
-  
-let [long , setLong]=useState([]); 
-let [lati , setLati]=useState([]);
 
 
 const getGeohashRange = ( 
@@ -96,8 +79,8 @@ function createData(long,lat) {
 }
 
 const db = firebase.firestore();
-let [marker, setMarker] = useState({});
-    const { isMarkerShown } = marker;
+let [marker, setMarker] = useState([]);
+    const { isMarkerShown } = false;
     useEffect(() => {  
        // Retrieve the current coordinates using the navigator API
    const randomLatitude = 9.4186961;
@@ -116,16 +99,119 @@ let [marker, setMarker] = useState({});
       //id: doc.id, //id and data pushed into items array 
       ...doc.data().location.geopoint, //spread operator merges data to id. 
     })); 
-    setMarker(marker=location); //items is equal to listItems  
-    console.log(marker.length);
+    setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+    let x= marker.length;
+    console.log(marker[x-1]);
      }); 
+     
+     db
+    .collection("Robbery")
+    .where("location.geohash", ">=", range.lower)
+    .where("location.geohash", "<=", range.upper) 
+    .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const location = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      ...doc.data().location.geopoint, //spread operator merges data to id. 
+    })); 
+     setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+    let x= marker.length;
+    console.log(marker);
+     });  
+
+     db
+      .collection("Potholes")
+      .where("location.geohash", ">=", range.lower)
+      .where("location.geohash", "<=", range.upper) 
+      .onSnapshot(snapshot => {
+      //You can "listen" to a document with the onSnapshot() method.
+      const location = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      ...doc.data().location.geopoint, //spread operator merges data to id. 
+    })); 
+      setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+      let x= marker.length;
+      console.log(marker);
+     });  
+
+     db
+   .collection("Blockage")
+   .where("location.geohash", ">=", range.lower)
+   .where("location.geohash", "<=", range.upper) 
+   .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const location = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      ...doc.data().location.geopoint, //spread operator merges data to id. 
+    })); 
+    setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+    let x= marker.length;
+    console.log(marker[x-1]);
+     });  
+
+     db
+   .collection("Traffic")
+   .where("location.geohash", ">=", range.lower)
+   .where("location.geohash", "<=", range.upper) 
+   .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const location = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      ...doc.data().location.geopoint, //spread operator merges data to id. 
+    })); 
+    setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+    let x= marker.length;
+    console.log(marker[x-1]);
+     });  
+
+     db
+   .collection("Street_lights")
+   .where("location.geohash", ">=", range.lower)
+   .where("location.geohash", "<=", range.upper) 
+   .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const location = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      ...doc.data().location.geopoint, //spread operator merges data to id. 
+    })); 
+    setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+    let x= marker.length;
+    console.log(marker);
+     }); 
+
+     db
+   .collection("Car_breakdown")
+   .where("location.geohash", ">=", range.lower)
+   .where("location.geohash", "<=", range.upper) 
+   .onSnapshot(snapshot => {
+    //You can "listen" to a document with the onSnapshot() method.
+    const location = snapshot.docs.map(doc => ({
+      //map each document into snapshot
+      //id: doc.id, //id and data pushed into items array 
+      ...doc.data().location.geopoint, //spread operator merges data to id. 
+    })); 
+    setMarker(marker=location);  //items is equal to listItems  
+    //marker=location 
+    let x= marker.length;
+    console.log(marker[x-1]);
+     }); 
+
         delayedShowMarker();
     }, []);
 
     const delayedShowMarker = () => {
-        setTimeout(() => {
         setMarker({ isMarkerShown: true });
-        }, 3000);
     };
 
     const handleMarkerClick = () => {
