@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 
-export default function Pending() {
+export default function Solved() {
   const db = firebase.firestore();
   const [pending, setPending] = useState(0);
   const [Traffic_Lights, setTraffic_Lights] = useState(0);
@@ -22,19 +22,19 @@ export default function Pending() {
     return await setPending(sum);
   }
   async function getCar() {
-    var snapShot = await db.collection("Car_breakdown").get();
+    var snapShot = await db.collection("SolvedBreakdown").get();
     return snapShot.docs.length;
   }
   async function getPotholes() {
-    var snapShot = await db.collection("Potholes").get();
+    var snapShot = await db.collection("SolvedPotholes").get();
     return snapShot.docs.length;
   }
   async function getLights() {
-    var snapShot = await db.collection("Street_lights").get();
+    var snapShot = await db.collection("SolvedLights").get();
     return snapShot.docs.length;
   }
   async function getTraffic() {
-    var snapShot = await db.collection("Traffic").get();
+    var snapShot = await db.collection("SolvedTraffic").get();
 
     return snapShot.docs.length;
   }

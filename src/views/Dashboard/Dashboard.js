@@ -29,7 +29,11 @@ import CardIcon from "../../components/Card/CardIcon.js";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 import Pending from "./problems/pendingReports";
-import Potholes from "./problems/potholes";
+import Potholes from "./problems/potholes"; 
+import SolvedPotholes from "./problems/SolvedPotholes" ;
+import SolvedTraffic from "./problems/SolvedTraffic" ; 
+import SolvedLights from "./problems/SolvedLights" ; 
+import Solved from "./problems/Solved" ; 
 import Button from "@material-ui/core/Button";
 
 //import { bugs, website, server } from "../../variables/general.js";
@@ -74,18 +78,18 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
-                <Icon> </Icon>
+                <Icon>Fixed Issues</Icon>
               </CardIcon>
               <br />
               <br />
               <br />
               <p className={classes.cardCategory} align="center">
-                {" "}
+                {""}
                 Total Fixed Issues
               </p>
               <h3 className={classes.cardTitle} align="center">
                 {" "}
-                0
+                <Solved></Solved>
               </h3>
             </CardHeader>
             <CardFooter stats>
@@ -177,35 +181,12 @@ export default function Dashboard() {
                 Traffic lights issues
               </p>
               <h3 className={classes.cardTitle} align="center">
-                Fixed: 0
+                Fixed: <SolvedTraffic></SolvedTraffic>
               </h3>
               <br />
               <h3 className={classes.cardTitle} align="center">
                 Pending: <TrafficLights></TrafficLights>
               </h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <LocalOffer />
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <Icon> Car Breakdown </Icon>
-              </CardIcon>
-              <br />
-              <br />
-              <br />
-              <p className={classes.cardCategory} align="center">
-                {" "}
-                A car is strunded on the road!
-              </p>
-              <br />
-              <Button color="secondary"> View Location on Map </Button>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -228,7 +209,7 @@ export default function Dashboard() {
                 Street lights issues
               </p>
               <h3 className={classes.cardTitle} align="center">
-                Fixed: 0
+                Fixed: <SolvedLights></SolvedLights>
               </h3>
               <br />
               <h3 className={classes.cardTitle} align="center">
@@ -256,12 +237,35 @@ export default function Dashboard() {
                 Potholes issues
               </p>
               <h3 className={classes.cardTitle} align="center">
-                Fixed: 0
+                Fixed: <SolvedPotholes></SolvedPotholes>
               </h3>
               <br />
               <h3 className={classes.cardTitle} align="center">
                 Pending: <Potholes></Potholes>
               </h3>
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <LocalOffer />
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>  
+        <GridItem xs={12} sm={12} md={4}>
+          <Card>
+            <CardHeader color="danger" stats icon>
+              <CardIcon color="danger">
+                <Icon> Car Breakdown </Icon>
+              </CardIcon>
+              <br />
+              <br />
+              <br />
+              <p className={classes.cardCategory} align="center">
+                {" "}
+                A car is strunded on the road!
+              </p>
+              <br />
+              <Button color="secondary"> View Location on Map </Button>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>

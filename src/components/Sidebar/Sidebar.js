@@ -154,7 +154,9 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>
             {links}
-            <Button color="secondary" onClick={out}>Signout</Button>
+          <div align="center">
+            <Button color="secondary" onClick={out}>Signout</Button> 
+            </div>
             </div> 
           
 

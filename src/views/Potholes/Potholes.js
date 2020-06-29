@@ -35,6 +35,20 @@ export default function Accidents(props) {
     },
   }))(TableCell);
  
+  const updateContent = async (row) => {
+    const accRef = await db.collection("Potholes").doc(row.id).get()
+    if (accRef.exists) {
+      const data = accRef.data()
+
+      const solvedRef = await db.collection("SolvedPotholes").doc(row.id).get()
+      if (!solvedRef.exists) {
+        await db.collection("SolvedPotholes").doc(row.id).set(data).then(async (succ) => {
+          await db.collection("Potholes").doc(row.id).delete()
+        })
+      }
+    }
+  }
+
   const button = ( 
     <Button
       component={Link}
@@ -134,7 +148,7 @@ useEffect(() => {
     //You can "listen" to a document with the onSnapshot() method.
     const listItems = snapshot.docs.map(doc => ({
       //map each document into snapshot
-      //id: doc.id, //id and data pushed into items array 
+      id: doc.id, //id and data pushed into items array 
       date:new Date(doc.data().timestamp)
       .toUTCString(),
       ...doc.data(), //spread operator merges data to id. 
@@ -178,8 +192,32 @@ useEffect(() => {
                     </StyledTableCell>
                     <StyledTableCell align='center'>{row.date}</StyledTableCell>
                     <StyledTableCell align='center'>
-                      {switchButton}
-                      {button}
+                    <Button
+                      component={Link}
+                      variant='contained'
+                      color='secondary'
+                      size='small'
+                      onClick={() => updateContent(row)}
+                    //to={'/maps'} 
+
+                    >
+                      Solved
+    </Button>
+
+                    <Button
+                      component={Link}
+                      variant='contained'
+                      color='primary'
+                      size='small'
+                      to={{
+                        pathname: '/maps',
+                        state: {
+                          loc: row.location.geopoint
+                        }
+                      }}
+                    >
+                      View Map
+    </Button >
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

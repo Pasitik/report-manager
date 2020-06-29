@@ -14,8 +14,9 @@ import Dashboard from './components/screens/Dashboard';
 import Admin from "./layouts/Admin.js";
 //import RTL from "./layouts/RTL.js";
 
-import "./assets/css/material-dashboard-react.css?v=1.9.0";
-import Maps from './views/Maps/Maps';
+import "./assets/css/material-dashboard-react.css?v=1.9.0"; 
+import Maps from './views/Maps/Maps.js';
+import Gmap from './views/Maps/gmap.js';
 
 
 const hist = createBrowserHistory();
@@ -29,8 +30,9 @@ function App() {
       <Route exact path="/login" component={Login} />  
       <Route exact path="/front" component={Front} />  
       <Route exact path="/home" component={Home} />  
-      <Route exact path="/dashboard" component={Dashboard} />
+      <Route exact path="/dashboard" component={Dashboard} /> 
       <Route exact path="/maps" component={Maps} />
+      <Route exact path="/gmaps" component={Gmap} />
       <Route path="/admin" component={Admin} />
       <Redirect from="/" to="/admin/dashboard" />  
       </Switch>

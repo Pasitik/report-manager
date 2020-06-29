@@ -33,7 +33,21 @@ export default function Accidents(props) {
     body: {
       fontSize: 14,
     },
-  }))(TableCell);
+  }))(TableCell); 
+
+  const updateContent = async (row) => {
+    const accRef = await db.collection("Robbery").doc(row.id).get()
+    if (accRef.exists) {
+      const data = accRef.data()
+
+      const solvedRef = await db.collection("SolvedRobbery").doc(row.id).get()
+      if (!solvedRef.exists) {
+        await db.collection("SolvedRobbery").doc(row.id).set(data).then(async (succ) => {
+          await db.collection("Robbery").doc(row.id).delete()
+        })
+      }
+    }
+  }
  
   const button = ( 
     <Button
@@ -99,13 +113,13 @@ export default function Accidents(props) {
   }
 
   //var snapShot = firestore.collection("Accidents").get();
-  var accident = getAccidents();
+  //var accident = getAccidents();
 
-  async function getAccidents() {
-    var snapShot = await db.collection("accident").get();
+  //async function getAccidents() {
+    //var snapShot = await db.collection("accident").get();
 
-    return snapShot.docs.length;
-  }
+    //return snapShot.docs.length;
+  //}
   const watch = true;
   const {latitude,
     longitude,
@@ -134,7 +148,7 @@ useEffect(() => {
     //You can "listen" to a document with the onSnapshot() method.
     const listItems = snapshot.docs.map(doc => ({
       //map each document into snapshot
-      //id: doc.id, //id and data pushed into items array 
+      id: doc.id, //id and data pushed into items array 
       date:new Date(doc.data().timestamp)
       .toUTCString(),
       ...doc.data(), //spread operator merges data to id. 
@@ -204,8 +218,32 @@ useEffect(() => {
                     </StyledTableCell>
                     <StyledTableCell align='center'>{row.date}</StyledTableCell>
                     <StyledTableCell align='center'>
-                      {switchButton}
-                      {button}
+                    <Button
+                      component={Link}
+                      variant='contained'
+                      color='secondary'
+                      size='small'
+                      onClick={() => updateContent(row)}
+                    //to={'/maps'} 
+
+                    >
+                      Solved
+    </Button>
+
+                    <Button
+                      component={Link}
+                      variant='contained'
+                      color='primary'
+                      size='small'
+                      to={{
+                        pathname: '/maps',
+                        state: {
+                          loc: row.location.geopoint
+                        }
+                      }}
+                    >
+                      View Map
+    </Button >
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

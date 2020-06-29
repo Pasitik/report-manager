@@ -36,7 +36,8 @@ import NotificationsPage from "./views/Administrator/Administrator.js";
 import RTLPage from "./views/Car_Breakdown/Car_Breakdown.js";
 import Accidents from "./views/Accidents/Accidents.js";
 import Robbery from "./views/Robbery/Robbery.js";
-import SecDash from "./views/Dashboard/SecDash.js";
+import SecDash from "./views/Dashboard/SecDash.js"; 
+import Gmap from "./views/Maps/gmap.js"
 
 const dashboardRoutes = [
   {
@@ -50,7 +51,7 @@ const dashboardRoutes = [
   {
     path: "/traffic",
     name: "Traffic Lights",
-    icon: "content_paste",
+    icon: LibraryBooks,
     component: TableList,
     layout: "/admin"
   },
@@ -64,14 +65,14 @@ const dashboardRoutes = [
   {
     path: "/potholes",
     name: "Potholes",
-    icon: BubbleChart,
+    icon: LibraryBooks,
     component: Icons,
     layout: "/admin"
   }, 
   {
     path: "/car_breakdown",
     name: "Car breakdown",
-    icon: Language,
+    icon: LibraryBooks,
     component: RTLPage,
     layout: "/admin"
   }, 
@@ -85,7 +86,7 @@ const dashboardRoutes = [
   {
     path: "/accidents",
     name: "Accidents",
-    icon: Language,
+    icon: LibraryBooks,
     component: Accidents,
     layout: "/admin"
   }, 
@@ -99,16 +100,16 @@ const dashboardRoutes = [
   },
 
   {
-    path: "/maps",
+    path: "/gmaps",
     name: "Maps",
     icon: LocationOn,
-    component: Maps,
+    component: Gmap,
     layout: "/admin"
   },
   {
     path: "/Admin",
     name: "Admin(manage users)",
-    icon: Notifications,
+    icon: Person,
     component: NotificationsPage,
     layout: "/admin"
   },
